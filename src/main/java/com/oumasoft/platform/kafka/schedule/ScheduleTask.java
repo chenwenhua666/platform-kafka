@@ -1,3 +1,4 @@
+/*
 package com.oumasoft.platform.kafka.schedule;
 
 import com.oumasoft.platform.kafka.constants.KafkaConstant;
@@ -8,14 +9,16 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.util.concurrent.ListenableFuture;
-import org.springframework.util.concurrent.ListenableFutureCallback;
+import org.springframework.tool.concurrent.ListenableFuture;
+import org.springframework.tool.concurrent.ListenableFutureCallback;
 
 import java.time.LocalDateTime;
 
+*/
 /**
  * @author crystal
  */
+/*
 @Slf4j
 @Configuration
 @EnableScheduling
@@ -44,3 +47,4 @@ public class ScheduleTask {
 
     }
 }
+*/

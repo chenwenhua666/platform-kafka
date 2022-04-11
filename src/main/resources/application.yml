@@ -12,7 +12,8 @@ spring:
   application:
     name: platform-kafka
   kafka:
-    bootstrap-servers: 172.26.188.1:9092,172.26.188.2:9092,172.26.188.3:9092
+    #bootstrap-servers: 172.26.188.1:9092,172.26.188.2:9092,172.26.188.3:9092
+    bootstrap-servers: 192.168.122.171:9092
 #    properties:
 #      sasl:
 #        mechanism: PLAIN
