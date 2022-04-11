@@ -60,20 +60,9 @@ public class ProducerDemo {
         log.info("发送message签名：{}", sign);
         String message = sign.concat(messageContent);
 
-        MessageTemplate messageTemplate2 = new MessageTemplate();
-        messageTemplate2.setVersion("1.0.0.202204");
-        messageTemplate2.setFrom("gptmis");
-        messageTemplate2.setMessageid("{2D65854F-61A7-45F0-AFF0-DAD8EA44031F}");
-        messageTemplate2.setTime(DateUtil.formatSplitTime(LocalDateTime.now()));
-        messageTemplate2.setMessagetype(FAIL_MESSAGE.concat(StringConstant.UNDER_LINE).concat("bumoban"));
-        messageTemplate2.setData(new HashMap());
-        String sendMessageContent = JSON.toJSONString(messageTemplate2);
-        System.out.println(sendMessageContent);
         ProducerRecord<String, String> record = new ProducerRecord<String, String>(KafkaConstant.TOPIC_WANGBAO_HIGH, message);
-
         producer.send(record, (metadata, exception) -> {
             if (exception == null) {
-                // 回调函数，该方法会在 Producer 收到 ack 时调用，为异步调用
                 String result = String.format("消息发送成功，主题Topic: %s,分区Partition: %s,偏移量Offset: %s",
                         metadata.topic(), metadata.partition(), metadata.offset());
                 log.info(result);

@@ -93,23 +93,22 @@ public class KafkaMessageListener {
         if (!CollectionUtils.isEmpty(mapProperties)) {
             String messageSign = message.substring(0, SIGN_LENGTH);
             String messageContent = message.substring(SIGN_LENGTH, message.length());
-            // 验签
-            String localMessageSign = SecureUtil.hmacMd5(HMACMD5_KEY).digestHex(messageContent);
-            if (messageSign.equals(localMessageSign)) {
-                sendAckMessage(topic, messageContent, ACK_MESSAGE, null, system);
-            } else {
-                log.error("消息验签错误,消息:{},本地签名:{}", message, localMessageSign);
-                return;
-            }
             JSONObject paramsObj = JSONObject.parseObject(messageContent);
             String from = paramsObj.getString("from");
-            String messagetype = paramsObj.getString("messagetype");
-            String uri = mapProperties.get(messagetype);
-            if (StringUtils.isBlank(uri)) {
-                log.error("消息回调地址为空,消息:{}", message);
-                return;
-            }
             if (SYSTEM_GPTMIS.equalsIgnoreCase(from)) {
+                String localMessageSign = SecureUtil.hmacMd5(HMACMD5_KEY).digestHex(messageContent);
+                if (messageSign.equals(localMessageSign)) {
+                    sendAckMessage(topic, messageContent, ACK_MESSAGE, null, system);
+                } else {
+                    log.error("消息验签错误,消息:{},本地签名:{}", message, localMessageSign);
+                    return;
+                }
+                String messagetype = paramsObj.getString("messagetype");
+                String uri = mapProperties.get(messagetype);
+                if (StringUtils.isBlank(uri)) {
+                    log.error("消息回调地址为空,消息:{}", message);
+                    return;
+                }
                 HashMap<String, Object> paramMap = new HashMap<>(1);
                 paramMap.put("params", messageContent);
                 String requestResult = HttpUtil.post(uri, paramMap);
@@ -123,26 +122,29 @@ public class KafkaMessageListener {
 
     private void sendAckMessage(String topic, String messageContent, String ackType, String requestResult, String system) {
         JSONObject paramsObj = JSONObject.parseObject(messageContent);
-        String version = paramsObj.getString("version");
-        String messageid = paramsObj.getString("messageid");
-        String time = paramsObj.getString("time");
-        String messagetype = paramsObj.getString("messagetype");
+        String from = paramsObj.getString("from");
+        if (SYSTEM_GPTMIS.equalsIgnoreCase(from)) {
+            String version = paramsObj.getString("version");
+            String messageid = paramsObj.getString("messageid");
+            String time = paramsObj.getString("time");
+            String messagetype = paramsObj.getString("messagetype");
 
-        MessageTemplate messageTemplate = new MessageTemplate();
-        messageTemplate.setVersion(version);
-        messageTemplate.setFrom(system);
-        messageTemplate.setMessageid(messageid);
-        messageTemplate.setTime(time);
-        messageTemplate.setMessagetype(ackType.concat(StringConstant.UNDER_LINE).concat(messagetype));
-        Map<String, String> data = new HashMap<>(1);
-        if (FAIL_MESSAGE.equals(ackType)) {
-            data.put("error", requestResult);
-            messageTemplate.setData(data);
-        } else {
-            messageTemplate.setData(data);
+            MessageTemplate messageTemplate = new MessageTemplate();
+            messageTemplate.setVersion(version);
+            messageTemplate.setFrom(system);
+            messageTemplate.setMessageid(messageid);
+            messageTemplate.setTime(time);
+            messageTemplate.setMessagetype(ackType.concat(StringConstant.UNDER_LINE).concat(messagetype));
+            Map<String, String> data = new HashMap<>(1);
+            if (FAIL_MESSAGE.equals(ackType)) {
+                data.put("error", requestResult);
+                messageTemplate.setData(data);
+            } else {
+                messageTemplate.setData(data);
+            }
+            String sendMessageContent = JSON.toJSONString(messageTemplate);
+            sendMessageService.send(topic, sendMessageContent);
         }
-        String sendMessageContent = JSON.toJSONString(messageTemplate);
-        sendMessageService.send(topic, sendMessageContent);
     }
 
 }
