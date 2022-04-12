@@ -2,10 +2,8 @@ package com.oumasoft.platform.kafka.demo;
 
 import cn.hutool.crypto.SecureUtil;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.oumasoft.platform.kafka.constants.KafkaConstant;
 import com.oumasoft.platform.kafka.constants.PlatformConstant;
-import com.oumasoft.platform.kafka.constants.StringConstant;
 import com.oumasoft.platform.kafka.entity.MessageFile;
 import com.oumasoft.platform.kafka.entity.MessageTemplate;
 import com.oumasoft.platform.kafka.tool.utils.DateUtil;
@@ -15,9 +13,6 @@ import org.apache.kafka.clients.producer.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
-import static com.oumasoft.platform.kafka.constants.KafkaConstant.FAIL_MESSAGE;
-import static com.oumasoft.platform.kafka.constants.PlatformConstant.HMACMD5_KEY;
-import static com.oumasoft.platform.kafka.constants.PlatformConstant.SIGN_LENGTH;
 
 /**
  * @author crystal

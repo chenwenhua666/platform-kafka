@@ -61,4 +61,6 @@
         <appender-ref ref="file_info"/>
         <appender-ref ref="file_error"/>
     </root>
+    <logger name="org.apache.kafka.clients.consumer.ConsumerConfig" level="off" />
+    <logger name="org.apache.kafka.clients.producer.ProducerConfig" level="off" />
 </configuration>

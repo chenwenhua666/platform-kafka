@@ -13,4 +13,9 @@ public interface PlatformConstant {
      * 签名长度
      */
     int SIGN_LENGTH = 32;
+
+    /**
+     * 异步线程池名称
+     */
+    String ASYNC_POOL = "platformAsyncThreadPool";
 }
