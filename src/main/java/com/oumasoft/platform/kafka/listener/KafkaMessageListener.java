@@ -124,6 +124,7 @@ public class KafkaMessageListener {
         JSONObject paramsObj = JSONObject.parseObject(messageContent);
         String from = paramsObj.getString("from");
         if (SYSTEM_GPTMIS.equalsIgnoreCase(from)) {
+            String userid = paramsObj.getString("userid");
             String version = paramsObj.getString("version");
             String messageid = paramsObj.getString("messageid");
             String time = paramsObj.getString("time");
@@ -132,6 +133,7 @@ public class KafkaMessageListener {
             MessageTemplate messageTemplate = new MessageTemplate();
             messageTemplate.setVersion(version);
             messageTemplate.setFrom(system);
+            messageTemplate.setUserid(userid);
             messageTemplate.setMessageid(messageid);
             messageTemplate.setTime(time);
             messageTemplate.setMessagetype(ackType.concat(StringConstant.UNDER_LINE).concat(messagetype));

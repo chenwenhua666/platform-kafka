@@ -22,6 +22,11 @@ public class MessageTemplate implements Serializable {
     private String from;
 
     /**
+     * user id
+     */
+    private String userid;
+
+    /**
      * 消息编号
      */
     private String messageid;
