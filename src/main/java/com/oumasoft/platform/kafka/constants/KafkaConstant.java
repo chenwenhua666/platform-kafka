@@ -31,6 +31,11 @@ public interface KafkaConstant {
     String TOPIC_CERTIFICATE = "zhengshu";
 
     /**
+     * gptmis topic
+     */
+    String TOPIC_GPTMIS = "gptmis";
+
+    /**
      * gptmis 系统
      */
     String SYSTEM_GPTMIS = "gptmis";

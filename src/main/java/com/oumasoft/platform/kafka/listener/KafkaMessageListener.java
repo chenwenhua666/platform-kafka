@@ -42,12 +42,12 @@ public class KafkaMessageListener {
         try {
             message = (String) record.value();
             messageContent = message.substring(SIGN_LENGTH, message.length());
-            log.info("topic: {},收到消息: {}", TOPIC_WANGBAO, message);
+            log.info("topic: {},监听收到消息: {}", TOPIC_WANGBAO, message);
             Map<String, String> mapProperties = redirectUriProperties.getWangbao();
             messageRedirect(TOPIC_WANGBAO, message, mapProperties, SYSTEM_WANGBAO);
         } catch (Exception e) {
             log.error("消息监听出错：{}", e);
-            sendAckMessage(TOPIC_WANGBAO, messageContent, FAIL_MESSAGE, e.getMessage(), SYSTEM_WANGBAO);
+            sendAckMessage(messageContent, FAIL_MESSAGE, e.getMessage(), SYSTEM_WANGBAO);
         } finally {
             acknowledgment.acknowledge();
         }
@@ -60,12 +60,12 @@ public class KafkaMessageListener {
         try {
             message = (String) record.value();
             messageContent = message.substring(SIGN_LENGTH, message.length());
-            log.info("topic: {},收到消息: {}", TOPIC_WANGBAO_HIGH, message);
+            log.info("topic: {},监听收到消息: {}", TOPIC_WANGBAO_HIGH, message);
             Map<String, String> mapProperties = redirectUriProperties.getWangbaoHigh();
             messageRedirect(TOPIC_WANGBAO_HIGH, message, mapProperties, SYSTEM_WANGBAO);
         } catch (Exception e) {
             log.error("消息监听出错：{}", e);
-            sendAckMessage(TOPIC_WANGBAO_HIGH, messageContent, FAIL_MESSAGE, e.getMessage(), SYSTEM_WANGBAO);
+            sendAckMessage(messageContent, FAIL_MESSAGE, e.getMessage(), SYSTEM_WANGBAO);
         } finally {
             acknowledgment.acknowledge();
         }
@@ -78,12 +78,12 @@ public class KafkaMessageListener {
         try {
             message = (String) record.value();
             messageContent = message.substring(SIGN_LENGTH, message.length());
-            log.info("topic: {},收到消息: {}", TOPIC_CERTIFICATE, message);
+            log.info("topic: {},监听收到消息: {}", TOPIC_CERTIFICATE, message);
             Map<String, String> mapProperties = redirectUriProperties.getZhengshu();
             messageRedirect(TOPIC_CERTIFICATE, message, mapProperties, SYSTEM_CERTIFICATE);
         } catch (Exception e) {
             log.error("消息监听出错：{}", e);
-            sendAckMessage(TOPIC_WANGBAO_HIGH, messageContent, FAIL_MESSAGE, e.getMessage(), SYSTEM_CERTIFICATE);
+            sendAckMessage(messageContent, FAIL_MESSAGE, e.getMessage(), SYSTEM_CERTIFICATE);
         } finally {
             acknowledgment.acknowledge();
         }
@@ -98,7 +98,7 @@ public class KafkaMessageListener {
             if (SYSTEM_GPTMIS.equalsIgnoreCase(from)) {
                 String localMessageSign = SecureUtil.hmacMd5(HMACMD5_KEY).digestHex(messageContent);
                 if (messageSign.equals(localMessageSign)) {
-                    sendAckMessage(topic, messageContent, ACK_MESSAGE, null, system);
+                    sendAckMessage(messageContent, ACK_MESSAGE, null, system);
                 } else {
                     log.error("消息验签错误,消息:{},本地签名:{}", message, localMessageSign);
                     return;
@@ -114,13 +114,13 @@ public class KafkaMessageListener {
                 String requestResult = HttpUtil.post(uri, paramMap);
                 log.info("业务系统返回地址:{}, 结果:{}", uri, requestResult);
                 if (!SUCCESS.equalsIgnoreCase(requestResult)) {
-                    sendAckMessage(topic, messageContent, FAIL_MESSAGE, requestResult, system);
+                    sendAckMessage(messageContent, FAIL_MESSAGE, requestResult, system);
                 }
             }
         }
     }
 
-    private void sendAckMessage(String topic, String messageContent, String ackType, String requestResult, String system) {
+    private void sendAckMessage(String messageContent, String ackType, String requestResult, String system) {
         JSONObject paramsObj = JSONObject.parseObject(messageContent);
         String from = paramsObj.getString("from");
         if (SYSTEM_GPTMIS.equalsIgnoreCase(from)) {
@@ -143,7 +143,7 @@ public class KafkaMessageListener {
                 messageTemplate.setData(data);
             }
             String sendMessageContent = JSON.toJSONString(messageTemplate);
-            sendMessageService.send(topic, sendMessageContent);
+            sendMessageService.send(TOPIC_GPTMIS, sendMessageContent);
         }
     }
 
