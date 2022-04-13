@@ -33,7 +33,7 @@
             <onMismatch>DENY</onMismatch>
         </filter>
     </appender>
-    <!--http://logback.qos.ch/manual/appenders.html-->
+
     <appender name="file_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${log.path}/error/error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>

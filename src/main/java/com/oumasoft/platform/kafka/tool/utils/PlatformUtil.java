@@ -257,7 +257,7 @@ public class PlatformUtil {
                 "服务名称：" + environment.getProperty("spring.application.name") + "\n" +
                 "端口号：" + environment.getProperty("server.port") + "\n" +
                 "-----------------------------------------";
-        System.out.println(banner);
+        log.info(banner);
     }
 
 
