@@ -12,8 +12,8 @@ import java.util.Map;
  */
 @Data
 @SpringBootConfiguration
-@PropertySource(value = {"file:/opt/kafka/properties/platform-redirect-uri.properties"})
-//@PropertySource(value = {"classpath:platform-redirect-uri.properties"})
+//@PropertySource(value = {"file:/opt/kafka/properties/platform-redirect-uri.properties"})
+@PropertySource(value = {"classpath:platform-redirect-uri.properties"})
 @ConfigurationProperties(prefix = "platform.redirect")
 public class PlatformRedirectUriProperties {
 
