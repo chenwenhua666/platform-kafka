@@ -256,6 +256,7 @@ public class PlatformUtil {
                 "服务启动成功，时间：" + DateUtil.formatFullTime(LocalDateTime.now(), DateUtil.FULL_TIME_SPLIT_PATTERN) + "\n" +
                 "服务名称：" + environment.getProperty("spring.application.name") + "\n" +
                 "端口号：" + environment.getProperty("server.port") + "\n" +
+                "环境变量：" + environment.getProperty("spring.profiles.active") + "\n" +
                 "-----------------------------------------";
         log.info(banner);
     }
