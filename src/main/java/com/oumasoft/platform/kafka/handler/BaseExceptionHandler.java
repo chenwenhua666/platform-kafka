@@ -6,7 +6,7 @@ import com.oumasoft.platform.kafka.exception.PlatformException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
-//import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
@@ -100,11 +100,11 @@ public class BaseExceptionHandler {
         return new PlatformResponse().message(message.toString());
     }
 
-    /*@ExceptionHandler(value = AccessDeniedException.class)
+    @ExceptionHandler(value = AccessDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public PlatformResponse handleAccessDeniedException() {
         return new PlatformResponse().message("没有权限访问该资源");
-    }*/
+    }
 
     @ExceptionHandler(value = HttpMediaTypeNotSupportedException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

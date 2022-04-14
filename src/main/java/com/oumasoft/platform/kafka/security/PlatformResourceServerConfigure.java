@@ -24,7 +24,7 @@ public class PlatformResourceServerConfigure extends ResourceServerConfigurerAda
 
     private final PlatformSecurityProperties properties;
     private final PlatformAccessDeniedHandler accessDeniedHandler;
-    private final PlatformAuthExceptionEntryPoint exceptionEntryPoint;
+    private final PlatformAuthExceptionEntryPoint authenticationEntryPoint;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -52,12 +52,8 @@ public class PlatformResourceServerConfigure extends ResourceServerConfigurerAda
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
-        if (exceptionEntryPoint != null) {
-            resources.authenticationEntryPoint(exceptionEntryPoint);
-        }
-        if (accessDeniedHandler != null) {
-            resources.accessDeniedHandler(accessDeniedHandler);
-        }
+        resources.authenticationEntryPoint(authenticationEntryPoint);
+        resources.accessDeniedHandler(accessDeniedHandler);
     }
 
     private void permitAll(HttpSecurity http) throws Exception {

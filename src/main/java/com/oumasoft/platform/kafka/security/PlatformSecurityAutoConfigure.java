@@ -2,10 +2,7 @@ package com.oumasoft.platform.kafka.security;
 
 import com.oumasoft.platform.kafka.handler.PlatformAccessDeniedHandler;
 import com.oumasoft.platform.kafka.handler.PlatformAuthExceptionEntryPoint;
-import com.oumasoft.platform.kafka.properties.PlatformSecurityProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
@@ -18,8 +15,6 @@ import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecur
  */
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@EnableConfigurationProperties(PlatformSecurityProperties.class)
-@ConditionalOnProperty(value = "platform.security.enable", havingValue = "true", matchIfMissing = true)
 public class PlatformSecurityAutoConfigure extends GlobalMethodSecurityConfiguration {
 
     @Bean

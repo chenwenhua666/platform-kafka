@@ -17,8 +17,19 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "platform.redirect")
 public class PlatformRedirectUriProperties {
 
+    /**
+     * wangbao topic 回调地址
+     */
     private Map<String, String> wangbao;
+
+    /**
+     * wangbao-hign topic 回调地址
+     */
     private Map<String, String> wangbaoHigh;
+
+    /**
+     * zhengshu topic 回调地址
+     */
     private Map<String, String> zhengshu;
 
 }
