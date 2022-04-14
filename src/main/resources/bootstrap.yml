@@ -13,3 +13,8 @@ spring:
     name: platform-kafka
   profiles:
     active: dev
+security:
+  oauth2:
+    resource:
+      id: ${spring.application.name}
+      user-info-uri: http://127.0.0.1:${server.port}/auth/user

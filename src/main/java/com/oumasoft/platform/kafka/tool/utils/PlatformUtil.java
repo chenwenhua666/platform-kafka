@@ -3,17 +3,18 @@ package com.oumasoft.platform.kafka.tool.utils;
 import com.alibaba.fastjson.JSONObject;
 
 import com.oumasoft.platform.kafka.constants.StringConstant;
+import com.oumasoft.platform.kafka.entity.SecurityUser;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.GrantedAuthority;
-//import org.springframework.security.core.context.SecurityContextHolder;
-//import org.springframework.security.oauth2.provider.OAuth2Authentication;
-//import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -220,36 +221,36 @@ public class PlatformUtil {
      *
      * @return String 用户名
      */
-    /*public static String getCurrentUsername() {
+    public static String getCurrentUsername() {
         Object principal = getOauth2Authentication().getPrincipal();
-        if (principal instanceof PlatformAuthUser) {
-            return ((PlatformAuthUser) principal).getUsername();
+        if (principal instanceof SecurityUser) {
+            return ((SecurityUser) principal).getUsername();
         }
         return (String) getOauth2Authentication().getPrincipal();
-    }*/
+    }
 
     /**
      * 获取当前用户权限集
      *
      * @return Collection<GrantedAuthority>权限集
      */
-    /*public static Collection<GrantedAuthority> getCurrentUserAuthority() {
+    public static Collection<GrantedAuthority> getCurrentUserAuthority() {
         return getOauth2Authentication().getAuthorities();
-    }*/
+    }
 
     /**
      * 获取当前令牌内容
      *
      * @return String 令牌内容
      */
-    /*public static String getCurrentTokenValue() {
+    public static String getCurrentTokenValue() {
         try {
             OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) getOauth2Authentication().getDetails();
             return details.getTokenValue();
         } catch (Exception ignore) {
             return null;
         }
-    }*/
+    }
 
     public static void printSystemUpBanner(Environment environment) {
         String banner = "-----------------------------------------\n" +
@@ -262,13 +263,13 @@ public class PlatformUtil {
     }
 
 
-    /*private static OAuth2Authentication getOauth2Authentication() {
+    private static OAuth2Authentication getOauth2Authentication() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return (OAuth2Authentication) authentication;
-    }*/
+    }
 
-    /*@SuppressWarnings("all")
+    @SuppressWarnings("all")
     private static LinkedHashMap<String, Object> getAuthenticationDetails() {
         return (LinkedHashMap<String, Object>) getOauth2Authentication().getUserAuthentication().getDetails();
-    }*/
+    }
 }

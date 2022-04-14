@@ -18,4 +18,20 @@ public interface PlatformConstant {
      * 异步线程池名称
      */
     String ASYNC_POOL = "platformAsyncThreadPool";
+
+    /**
+     * 校验请求头TOKEN名称
+     */
+    String TOKEN_HEADER = "Authorization";
+
+    /**
+     * Basic
+     */
+    String TOKEN_BASIC_PREFIX = "Basic ";
+
+    /**
+     * 默认密码
+     */
+    String DEFAULT_PASSWORD = "12345678a_";
+
 }
