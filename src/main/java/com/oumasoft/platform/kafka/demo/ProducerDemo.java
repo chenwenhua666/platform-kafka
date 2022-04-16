@@ -45,6 +45,7 @@ public class ProducerDemo {
         MessageTemplate messageTemplate = new MessageTemplate();
         messageTemplate.setVersion("1.0.0.202204");
         messageTemplate.setFrom("gptmis");
+        messageTemplate.setUserid("sysadmin");
         messageTemplate.setMessageid("{2D65854F-61A7-45F0-AFF0-DAD8EA44031F}");
         messageTemplate.setTime(DateUtil.formatSplitTime(LocalDateTime.now()));
         messageTemplate.setMessagetype("bumoban");

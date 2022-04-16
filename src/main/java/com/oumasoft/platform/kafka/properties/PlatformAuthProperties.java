@@ -21,8 +21,4 @@ public class PlatformAuthProperties {
      */
     private String jwtAccessKey;
 
-    /**
-     * 免认证的请求需要认证请求头
-     */
-    private Boolean authorizeAll = Boolean.FALSE;
 }
