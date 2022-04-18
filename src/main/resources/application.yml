@@ -1,7 +1,7 @@
 platform:
   foundation:
     anonymous-rule:
-      enable: true
+      enable: false
       header: permission
       permission-uris: /send,/testSend
       public-key: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCRCD2X4lP6nVTpxvmb3Sy8JyAQWHgD48ln4heWlgPZmc+/pZx7V4nGR+L55/j0wTHfSxGqlx/lrsepEL97VyG+4xDd5GQBGRz/xEM5j7AjdyKcHPAV545gn+9h0YZx6YqrR/nWlmXtKcHQWNyUu9LEmt5HTrC5dmYa3atHFB0+bwIDAQAB

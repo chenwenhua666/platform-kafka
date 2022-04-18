@@ -114,7 +114,7 @@ public class KafkaMessageListener {
                 String requestResult = HttpUtil.post(uri, paramMap);
                 log.info("业务系统返回地址:{}, 结果:{}", uri, requestResult);
                 if (!SUCCESS.equalsIgnoreCase(requestResult)) {
-                    sendAckMessage(messageContent, FAIL_MESSAGE, requestResult, system);
+                    sendAckMessage(messageContent, NACK_MESSAGE, requestResult, system);
                 }
             }
         }

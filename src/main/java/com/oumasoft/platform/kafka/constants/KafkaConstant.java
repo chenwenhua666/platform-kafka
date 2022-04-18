@@ -65,4 +65,9 @@ public interface KafkaConstant {
      */
     String FAIL_MESSAGE = "fail";
 
+    /**
+     * 回绝消息
+     */
+    String NACK_MESSAGE = "nack";
+
 }
