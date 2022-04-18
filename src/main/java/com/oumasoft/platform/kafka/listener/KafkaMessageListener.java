@@ -117,7 +117,7 @@ public class KafkaMessageListener {
                     sendAckMessage(messageContent, ACK_MESSAGE, null, system);
                 } else {
                     String base64Decrypt = Base64.decodeStr(requestResult);
-                    log.info("业务系统返回地址:{},结果:{},base64解密后:{}", uri, base64Decrypt, requestResult);
+                    log.info("业务系统返回地址:{},结果:{},base64解密后:{}", uri, requestResult, base64Decrypt);
                     if (StringUtils.isBlank(base64Decrypt)) {
                         base64Decrypt = requestResult;
                     }
