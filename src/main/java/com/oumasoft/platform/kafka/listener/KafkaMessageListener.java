@@ -111,16 +111,17 @@ public class KafkaMessageListener {
                 }
                 HashMap<String, Object> paramMap = new HashMap<>(1);
                 paramMap.put("params", messageContent);
-                String base64Encrypt = HttpUtil.post(uri, paramMap);
-                String requestResult = Base64.decodeStr(base64Encrypt);
-                log.info("业务系统返回地址:{},结果:{},base64解密后:{}", uri, base64Encrypt, requestResult);
-                if (StringUtils.isBlank(requestResult)) {
-                    requestResult = base64Encrypt;
-                }
+                String requestResult = HttpUtil.post(uri, paramMap);
                 if (SUCCESS.equalsIgnoreCase(requestResult)) {
+                    log.info("业务系统返回地址:{},结果:{}", uri, requestResult);
                     sendAckMessage(messageContent, ACK_MESSAGE, null, system);
                 } else {
-                    sendAckMessage(messageContent, NACK_MESSAGE, requestResult, system);
+                    String base64Decrypt = Base64.decodeStr(requestResult);
+                    log.info("业务系统返回地址:{},结果:{},base64解密后:{}", uri, base64Decrypt, requestResult);
+                    if (StringUtils.isBlank(base64Decrypt)) {
+                        base64Decrypt = requestResult;
+                    }
+                    sendAckMessage(messageContent, NACK_MESSAGE, base64Decrypt, system);
                 }
             }
         }
