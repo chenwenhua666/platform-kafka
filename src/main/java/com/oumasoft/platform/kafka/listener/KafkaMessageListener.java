@@ -1,5 +1,6 @@
 package com.oumasoft.platform.kafka.listener;
 
+import cn.hutool.core.codec.Base64;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
@@ -110,8 +111,12 @@ public class KafkaMessageListener {
                 }
                 HashMap<String, Object> paramMap = new HashMap<>(1);
                 paramMap.put("params", messageContent);
-                String requestResult = HttpUtil.post(uri, paramMap);
-                log.info("业务系统返回地址:{}, 结果:{}", uri, requestResult);
+                String base64Encrypt = HttpUtil.post(uri, paramMap);
+                String requestResult = Base64.decodeStr(base64Encrypt);
+                log.info("业务系统返回地址:{},结果:{},base64解密后:{}", uri, base64Encrypt, requestResult);
+                if (StringUtils.isBlank(requestResult)) {
+                    requestResult = base64Encrypt;
+                }
                 if (SUCCESS.equalsIgnoreCase(requestResult)) {
                     sendAckMessage(messageContent, ACK_MESSAGE, null, system);
                 } else {
