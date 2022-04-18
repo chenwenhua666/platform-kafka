@@ -97,23 +97,24 @@ public class KafkaMessageListener {
             String from = paramsObj.getString("from");
             if (SYSTEM_GPTMIS.equalsIgnoreCase(from)) {
                 String localMessageSign = SecureUtil.hmacMd5(HMACMD5_KEY).digestHex(messageContent);
-                if (messageSign.equals(localMessageSign)) {
-                    sendAckMessage(messageContent, ACK_MESSAGE, null, system);
-                } else {
+                if (!messageSign.equals(localMessageSign)) {
+                    sendAckMessage(messageContent, NACK_MESSAGE, "消息验签失败", system);
                     log.error("消息验签错误,消息:{},本地签名:{}", message, localMessageSign);
                     return;
                 }
                 String messagetype = paramsObj.getString("messagetype");
                 String uri = mapProperties.get(messagetype);
                 if (StringUtils.isBlank(uri)) {
-                    log.error("消息回调地址为空,消息:{}", message);
+                    log.error("消息回调地址为空,topic:{},消息:{}", topic, message);
                     return;
                 }
                 HashMap<String, Object> paramMap = new HashMap<>(1);
                 paramMap.put("params", messageContent);
                 String requestResult = HttpUtil.post(uri, paramMap);
                 log.info("业务系统返回地址:{}, 结果:{}", uri, requestResult);
-                if (!SUCCESS.equalsIgnoreCase(requestResult)) {
+                if (SUCCESS.equalsIgnoreCase(requestResult)) {
+                    sendAckMessage(messageContent, ACK_MESSAGE, null, system);
+                } else {
                     sendAckMessage(messageContent, NACK_MESSAGE, requestResult, system);
                 }
             }
@@ -138,7 +139,7 @@ public class KafkaMessageListener {
             messageTemplate.setTime(time);
             messageTemplate.setMessagetype(ackType.concat(StringConstant.UNDER_LINE).concat(messagetype));
             Map<String, String> data = new HashMap<>(1);
-            if (FAIL_MESSAGE.equals(ackType)) {
+            if (FAIL_MESSAGE.equals(ackType) || NACK_MESSAGE.equals(ackType)) {
                 data.put("error", requestResult);
                 messageTemplate.setData(data);
             } else {
