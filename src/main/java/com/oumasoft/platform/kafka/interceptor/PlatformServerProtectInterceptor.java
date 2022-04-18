@@ -29,16 +29,17 @@ public class PlatformServerProtectInterceptor implements HandlerInterceptor {
 
     @Resource
     private PlatformAuthProperties authProperties;
+
     @Resource
     private PlatformFoundationProperties foundationProperties;
-    @Resource
+
     private AntPathMatcher pathMatcher = new AntPathMatcher();
 
     @Override
     public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws Exception {
         PlatformAnonymousRuleProperties anonymousRuleProperties = foundationProperties.getAnonymousRule();
         if (anonymousRuleProperties != null && anonymousRuleProperties.getEnable()) {
-            String uri = request.getRequestURI();
+            String uri = request.getServletPath();
             String permissionUri = anonymousRuleProperties.getPermissionUris();
             String[] permissionUris = StringUtils.splitByWholeSeparatorPreserveAllTokens(permissionUri, StringConstant.COMMA);
             if (permissionUris != null && ArrayUtils.isNotEmpty(permissionUris)) {
