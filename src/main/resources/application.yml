@@ -10,7 +10,7 @@ platform:
       user[0]:
         username: systemadmin
         password: $2a$10$UpSLxSLfWtHlosvaMoBw8.Y541Fmv5z7YZFz.7uN3XfZuTpM/35S2
-        permissions: *:*:*
+        permissions: all
       user[1]:
         username: test
         password: $2a$10$f4MiXRpi9bhY5OE/NReLNe0asDEILplU.Dzo59E.FzuSu7nkcXIJm
