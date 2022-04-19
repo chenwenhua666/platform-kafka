@@ -14,4 +14,5 @@ public class PlatformFoundationProperties {
 
     private PlatformAnonymousRuleProperties anonymousRule = new PlatformAnonymousRuleProperties();
 
+    private PlatformAccountProperties account = new PlatformAccountProperties();
 }
