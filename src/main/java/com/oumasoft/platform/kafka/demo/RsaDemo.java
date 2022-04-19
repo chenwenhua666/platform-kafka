@@ -1,5 +1,6 @@
 package com.oumasoft.platform.kafka.demo;
 
+import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
 import com.oumasoft.platform.kafka.tool.utils.RsaUtil;
@@ -55,7 +56,7 @@ public class RsaDemo {
         System.out.println("hutool获得私钥:\n"+hutoolPrivateKey);
 
         //String testStr = "测试test123";
-        String testStr = basicHeaderValue;
+        String testStr = "Basic YW5vbnltb3VzOmFub255bW91c19zZWNyZXQ=";
         String rsaEncryptStr = RsaUtil.encryptByPublicKey(rsaGenerate.getPublicKeyBase64(), testStr);
         System.out.println("RSAUtil使用hutool公钥加密:"+rsaEncryptStr);
         String rsaDecryptStr = RsaUtil.decryptByPrivateKey(rsaGenerate.getPrivateKeyBase64(), rsaEncryptStr);
@@ -85,6 +86,10 @@ public class RsaDemo {
         RSA rsaPrivate = new RSA(hutoolPrivateKey,null);
         String to = rsaPrivate.decryptStr(from1, KeyType.PrivateKey);
         System.out.println("业务测试解密："+to);
+        String md5 = SecureUtil.md5("Basic YW5vbnltb3VzOmFub255bW91c19zZWNyZXQ=");
+        //String sm3 = SmUtil.sm3("Basic YW5vbnltb3VzOmFub255bW91c19zZWNyZXQ=");
+        System.out.println("md5:"+md5);
+        //System.out.println("sm3:"+sm3);
 
     }
 

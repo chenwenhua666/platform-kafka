@@ -32,7 +32,6 @@ public class PlatformUserDetailServiceImpl implements UserDetailsService {
         ).findFirst();
         if (optionalUser.isPresent()) {
             SecurityUser user = optionalUser.get();
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
             return new User(user.getUsername(), user.getPassword(), user.isEnabled(),
                     user.isAccountNonExpired(), user.isCredentialsNonExpired(),
                     user.isAccountNonLocked(), AuthorityUtils.commaSeparatedStringToAuthorityList(user.getPermissions()));

@@ -28,10 +28,4 @@ public interface PlatformConstant {
      * Basic
      */
     String TOKEN_BASIC_PREFIX = "Basic ";
-
-    /**
-     * 默认密码
-     */
-    String DEFAULT_PASSWORD = "12345678a_";
-
 }
