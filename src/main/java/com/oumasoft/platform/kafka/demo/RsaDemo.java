@@ -46,26 +46,21 @@ public class RsaDemo {
 
         //获得公钥
         rsaGenerate.getPublicKey();
-        //String hutoolPublicKey = rsaGenerate.getPublicKeyBase64();
-        String hutoolPublicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCRCD2X4lP6nVTpxvmb3Sy8JyAQWHgD48ln4heWlgPZmc+/pZx7V4nGR+L55/j0wTHfSxGqlx/lrsepEL97VyG+4xDd5GQBGRz/xEM5j7AjdyKcHPAV545gn+9h0YZx6YqrR/nWlmXtKcHQWNyUu9LEmt5HTrC5dmYa3atHFB0+bwIDAQAB";
+        String hutoolPublicKey = rsaGenerate.getPublicKeyBase64();
         System.out.println("hutool获得公钥:\n"+hutoolPublicKey);
 
         //获得私钥
         rsaGenerate.getPrivateKey();
-        //String hutoolPrivateKey = rsaGenerate.getPrivateKeyBase64();
-        String hutoolPrivateKey = "MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAJEIPZfiU/qdVOnG+ZvdLLwnIBBYeAPjyWfiF5aWA9mZz7+lnHtXicZH4vnn+PTBMd9LEaqXH+Wux6kQv3tXIb7jEN3kZAEZHP/EQzmPsCN3Ipwc8BXnjmCf72HRhnHpiqtH+daWZe0pwdBY3JS70sSa3kdOsLl2Zhrdq0cUHT5vAgMBAAECgYAw17yehQtRMGEjZe40DpV9PBPxTUoFzVXL1XmqLhVX2BP979E2PLHag+Ut0nCmRNX95DMr5z9Hw8fb6RcDe8GSHNLY7IufXhTWJMy38oEVBqu9fWb/cEr0uRFSr5v9fnmqL89lM6v4MH9IhEtNeNLJW5IOGg78bpq1/2YUdKRVmQJBAMjXidQaP1N8u62s60XnYCRtVxe2+KtXVGKZdHAs0QZ2dV5OSo7S737XuzsXFYqt5bzboB4lyWvqfzovPGoG1NMCQQC43Owwzh/7X4Sj99UigolygOMQ1u5cTgB9VoiESjNgSZ2xypLxF+2HMh+Pa33qJNtcNqqfIDvAfdnmgJQadd51AkB0e93qcFauGzfWoOXLo0g1mFzc2jgbWAkPLqVDshqBPw8PZSUE9P4GeSSUPu01g2otQMv68DuEJXsoyeCmNdQVAkBiWof/X2t8nlE/u7fV6IWgOhqU9wVSbt2r0cJIQAIdlI0l7pVHWGezqmNINvSDAqEC6sLUbp3byBmKnZYujc+RAkAFNMUTcr1FJHnkDJ+fuH9GER99evbYuicGuiwXnyIn2exyZkczn7zMccmVGNFdTzuqdaUX1Xc6BBAjE8ihIabA";
+        String hutoolPrivateKey = rsaGenerate.getPrivateKeyBase64();
         System.out.println("hutool获得私钥:\n"+hutoolPrivateKey);
 
-        //String testStr = "测试test123";
         String testStr = "Basic YW5vbnltb3VzOmFub255bW91c19zZWNyZXQ=";
-        String rsaEncryptStr = RsaUtil.encryptByPublicKey(rsaGenerate.getPublicKeyBase64(), testStr);
+        String rsaEncryptStr = RsaUtil.encryptByPublicKey(hutoolPublicKey, testStr);
         System.out.println("RSAUtil使用hutool公钥加密:"+rsaEncryptStr);
-        String rsaDecryptStr = RsaUtil.decryptByPrivateKey(rsaGenerate.getPrivateKeyBase64(), rsaEncryptStr);
+        String rsaDecryptStr = RsaUtil.decryptByPrivateKey(hutoolPrivateKey, rsaEncryptStr);
         System.out.println("RSAUtil使用hutool私钥解密:"+rsaDecryptStr);
-        //RSA rsa = new RSA(privateKey,publicKey);
+
         RSA rsa = new RSA(hutoolPrivateKey,hutoolPublicKey);
-        byte[] encrypt = rsa.encrypt(testStr, KeyType.PublicKey);
-       // String encryptData = new String(encrypt,StandardCharsets.UTF_8);
         String encryptData1 = rsa.encryptHex(testStr, KeyType.PublicKey);
         String encryptData2 = rsa.encryptBase64(testStr, KeyType.PublicKey);
         System.out.println("hutool公钥加密1："+encryptData1);
@@ -88,12 +83,10 @@ public class RsaDemo {
         String to = rsaPrivate.decryptStr(from1, KeyType.PrivateKey);
         System.out.println("业务测试解密："+to);
         String md5 = SecureUtil.md5("Basic YW5vbnltb3VzOmFub255bW91c19zZWNyZXQ=");
-        //String sm3 = SmUtil.sm3("Basic YW5vbnltb3VzOmFub255bW91c19zZWNyZXQ=");
         System.out.println("md5:"+md5);
-        //System.out.println("sm3:"+sm3);
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        passwordEncoder.encode("12345678a_");
-        System.out.println(passwordEncoder.encode("12345678a_"));
+        passwordEncoder.encode(testStr);
+
     }
 
 }

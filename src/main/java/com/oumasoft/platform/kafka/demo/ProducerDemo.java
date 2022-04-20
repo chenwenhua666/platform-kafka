@@ -23,7 +23,6 @@ public class ProducerDemo {
     public static void main(String[] args) {
         log.info("ProducerDemo main方法启动");
         Properties properties = new Properties();
-        //properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "172.26.188.1:9092,172.26.188.2:9092,172.26.188.3:9092");
         properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.122.171:9092");
         properties.put(ProducerConfig.ACKS_CONFIG, "all");
         properties.put(ProducerConfig.RETRIES_CONFIG, 3);
@@ -32,7 +31,6 @@ public class ProducerDemo {
         properties.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 33554432);
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
-        //properties.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, Arrays.asList("com.oumasoft.kafka.demo.MessageFormatInterceptor"));
         KafkaProducer<String, String> producer = new KafkaProducer<String, String>(properties);
 
         Map<String, Object> data = new LinkedHashMap<>(2);
@@ -67,7 +65,6 @@ public class ProducerDemo {
                 exception.printStackTrace();
             }
         });
-        // 5. 关闭连接
         producer.close();
     }
 }
