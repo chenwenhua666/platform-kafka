@@ -37,7 +37,7 @@ public class PlatformConfig {
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        // 新版使用: config.addAllowedOriginPattern(CorsConfiguration.ALL);
+        // new: {config.addAllowedOriginPattern(CorsConfiguration.ALL)};
         config.addAllowedOrigin(CorsConfiguration.ALL);
         config.addAllowedHeader(CorsConfiguration.ALL);
         config.addAllowedMethod(CorsConfiguration.ALL);
