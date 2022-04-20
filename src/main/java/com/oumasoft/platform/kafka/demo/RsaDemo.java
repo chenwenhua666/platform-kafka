@@ -4,6 +4,7 @@ import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
 import com.oumasoft.platform.kafka.tool.utils.RsaUtil;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
@@ -90,7 +91,9 @@ public class RsaDemo {
         //String sm3 = SmUtil.sm3("Basic YW5vbnltb3VzOmFub255bW91c19zZWNyZXQ=");
         System.out.println("md5:"+md5);
         //System.out.println("sm3:"+sm3);
-
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        passwordEncoder.encode("12345678a_");
+        System.out.println(passwordEncoder.encode("12345678a_"));
     }
 
 }

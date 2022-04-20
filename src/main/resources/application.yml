@@ -9,9 +9,9 @@ platform:
     account:
       user[0]:
         username: systemadmin
-        password: $2a$10$UpSLxSLfWtHlosvaMoBw8.Y541Fmv5z7YZFz.7uN3XfZuTpM/35S2
+        password: $2a$10$uJ08xg9eAE.1M7Hmum4r1.L.sdjooHBYyAiK.fl9fMfwbfTrSVSXm
         permissions: all
       user[1]:
         username: test
-        password: $2a$10$f4MiXRpi9bhY5OE/NReLNe0asDEILplU.Dzo59E.FzuSu7nkcXIJm
+        password: $2a$10$RzU2jR5eqkNZ/QL.rBcgnOW3z2bxZ3Z.T9u5Zf/anOfRyZW/TzfiO
         permissions: user:view,user:add

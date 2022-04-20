@@ -28,4 +28,9 @@ public interface PlatformConstant {
      * Basic
      */
     String TOKEN_BASIC_PREFIX = "Basic ";
+
+    /**
+     * bearer
+     */
+    String TOKEN_BEARER_PREFIX = "bearer ";
 }
