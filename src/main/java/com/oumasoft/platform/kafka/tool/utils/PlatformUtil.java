@@ -1,6 +1,6 @@
 package com.oumasoft.platform.kafka.tool.utils;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSON;
 
 import com.oumasoft.platform.kafka.constants.StringConstant;
 import com.oumasoft.platform.kafka.entity.SecurityUser;
@@ -114,7 +114,7 @@ public class PlatformUtil {
                                     int status, Object value) throws IOException {
         response.setContentType(contentType);
         response.setStatus(status);
-        response.getOutputStream().write(JSONObject.toJSONString(value).getBytes());
+        response.getOutputStream().write(JSON.toJSONString(value).getBytes());
     }
 
     /**

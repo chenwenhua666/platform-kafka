@@ -1,7 +1,7 @@
 package com.oumasoft.platform.kafka.demo;
 
 import cn.hutool.crypto.SecureUtil;
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.oumasoft.platform.kafka.constants.KafkaConstant;
 import com.oumasoft.platform.kafka.constants.PlatformConstant;
 import com.oumasoft.platform.kafka.entity.MessageFile;

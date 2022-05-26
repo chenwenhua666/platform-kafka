@@ -3,8 +3,8 @@ package com.oumasoft.platform.kafka.listener;
 import cn.hutool.core.codec.Base64;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.http.HttpUtil;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.oumasoft.platform.kafka.constants.StringConstant;
 import com.oumasoft.platform.kafka.entity.MessageTemplate;
 import com.oumasoft.platform.kafka.properties.PlatformRedirectUriProperties;
@@ -94,7 +94,7 @@ public class KafkaMessageListener {
         if (!CollectionUtils.isEmpty(mapProperties)) {
             String messageSign = message.substring(0, SIGN_LENGTH);
             String messageContent = message.substring(SIGN_LENGTH, message.length());
-            JSONObject paramsObj = JSONObject.parseObject(messageContent);
+            JSONObject paramsObj = JSON.parseObject(messageContent);
             String from = paramsObj.getString("from");
             if (SYSTEM_GPTMIS.equalsIgnoreCase(from)) {
                 String localMessageSign = SecureUtil.hmacMd5(HMACMD5_KEY).digestHex(messageContent);
@@ -128,7 +128,7 @@ public class KafkaMessageListener {
     }
 
     private void sendAckMessage(String messageContent, String ackType, String requestResult, String system) {
-        JSONObject paramsObj = JSONObject.parseObject(messageContent);
+        JSONObject paramsObj = JSON.parseObject(messageContent);
         String from = paramsObj.getString("from");
         if (SYSTEM_GPTMIS.equalsIgnoreCase(from)) {
             String userid = paramsObj.getString("userid");
